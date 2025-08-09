@@ -2,99 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Multi-Step Popup Form</title>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- Your CSS -->
-  <link rel="stylesheet" href="index.css" />
-
-  <!-- JavaScript File -->
-  <script src="index.js" defer></script>
+  <title>Multi-Step Lead Form</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: "#da373d",
+          },
+        },
+      },
+    };
+  </script>
 </head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
 
-<body>
-  <!-- Open Modal Button -->
-  <button class="btn" id="openFormBtn" onclick="openModal()">Open Form</button>
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
+    <h1 class="text-2xl font-bold mb-6 text-center">Complete Your Registration</h1>
 
-  <!-- Modal Popup -->
-  <div class="modal hidden" id="popupModal">
-    <div class="modal-content">
-      <form id="form">
-        <!-- Step 1 -->
-       <div id="step1" class="form-container">
-  <div class="input-group">
-   
-    <input type="text" id="name" name="name" placeholder="Enter your name" required />
-  </div>
-  <div class="input-group">
-    
-    <input type="email" id="email" name="email" placeholder="Enter your email" required />
-  </div>
-   <div class="input-group">
-  <input
-    type="tel"
-    id="phone"
-    name="phone"
-    placeholder="Enter your phone number"
-    pattern="[0-9]{10}"
-    maxlength="10"
-    required
-  />
-</div>
+    <form id="multiStepForm" class="space-y-6" onsubmit="return false">
 
-  <div class="input-group">
-    <input type="password" id="password" name="password" placeholder="Create a password" required />
-  </div>
-</div>
-
-
-        <!-- Step 2 -->
-        <div id="step2" class="hidden">
-          <div class="question">
-            <label><strong>Q1: What is your current revenue?</strong></label>
-            <div class="radio-group">
-              <label><input type="radio" name="revenue" value="less_than_5cr"> Less than 5 Cr</label>
-              <label><input type="radio" name="revenue" value="5to10cr"> 5 Cr to 10 Cr</label>
-              <label><input type="radio" name="revenue" value="10to20cr"> 10 Cr to 20 Cr</label>
-              <label><input type="radio" name="revenue" value="20plus"> 20 Cr+</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <label><strong>Q2: What is the major challenge you are facing?</strong></label>
-            <div class="radio-group">
-              <label><input type="radio" name="challenge" value="funding"> Funding</label>
-              <label><input type="radio" name="challenge" value="operations"> Operations</label>
-              <label><input type="radio" name="challenge" value="team"> Team management</label>
-              <label><input type="radio" name="challenge" value="scaling"> Scaling</label>
-              <label><input type="radio" name="challenge" value="all"> All of the above</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <label><strong>Q3: Is your business profitable over the last 3 years?</strong></label>
-            <div class="radio-group">
-              <label><input type="radio" name="profitable" value="yes"> Yes</label>
-              <label><input type="radio" name="profitable" value="no"> No</label>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="button" class="btn" id="submitBtn" onclick="submitStep2()">Submit</button>
+      <!-- Step 1 -->
+      <div id="step1" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium mb-1">Name</label>
+          <input id="name" name="name" type="text" placeholder="Enter Name" required
+                 class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+          <p id="nameError" class="hidden text-red-500 text-xs mt-1">Please enter your name.</p>
         </div>
 
-        <!-- Step Footer -->
-        <div class="step-footer">
-          <div class="step-indicator" id="stepIndicator">
-            <span id="stepLabel1" class="step-label active">Step 1</span>
-            <i id="stepLock2" class="fas fa-lock step-icon"></i>
-          </div>
-          <button type="button" id="nextBtn" class="btn" onclick="goToStep2()">Next</button>
+        <div>
+          <label for="email" class="block text-sm font-medium mb-1">Email</label>
+          <input id="email" name="email" type="email" placeholder="Enter Email" required
+                 class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+          <p id="emailError" class="hidden text-red-500 text-xs mt-1">Please enter a valid email.</p>
         </div>
-      </form>
-    </div>
+
+        <div>
+          <label for="phone" class="block text-sm font-medium mb-1">Phone</label>
+          <div class="flex">
+            <span class="px-3 py-2 bg-gray-200 border border-r-0 rounded-l-lg text-sm text-gray-600">IND</span>
+            <input id="phone" name="phone" type="tel" placeholder="Enter Phone" maxlength="10" pattern="[0-9]{10}" required
+                   class="w-full p-3 border rounded-r-lg focus:ring-2 focus:ring-blue-500">
+          </div>
+          <p id="phoneError" class="hidden text-red-500 text-xs mt-1">Please enter valid 10 digit phone number.</p>
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium mb-1">Password</label>
+          <input id="password" name="password" type="password" placeholder="Create Password" required
+                 class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="step2" class="hidden space-y-6">
+        <div>
+          <label class="block font-semibold mb-2">Q1: Current Revenue?</label>
+          <div class="space-y-1">
+            <label class="flex items-center"><input type="radio" name="revenue" value="less_than_5cr" class="mr-2"> Less than 5 Cr</label>
+            <label class="flex items-center"><input type="radio" name="revenue" value="5to10cr" class="mr-2"> 5 Cr to 10 Cr</label>
+            <label class="flex items-center"><input type="radio" name="revenue" value="10to20cr" class="mr-2"> 10 Cr to 20 Cr</label>
+            <label class="flex items-center"><input type="radio" name="revenue" value="20plus" class="mr-2"> 20 Cr+</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-2">Q2: Major Challenge?</label>
+          <div class="space-y-1">
+            <label class="flex items-center"><input type="radio" name="challenge" value="funding" class="mr-2"> Funding</label>
+            <label class="flex items-center"><input type="radio" name="challenge" value="operations" class="mr-2"> Operations</label>
+            <label class="flex items-center"><input type="radio" name="challenge" value="team" class="mr-2"> Team management</label>
+            <label class="flex items-center"><input type="radio" name="challenge" value="scaling" class="mr-2"> Scaling</label>
+            <label class="flex items-center"><input type="radio" name="challenge" value="all" class="mr-2"> All of the above</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-2">Q3: Profitable last 3 years?</label>
+          <div class="space-y-1">
+            <label class="flex items-center"><input type="radio" name="profitable" value="yes" class="mr-2"> Yes</label>
+            <label class="flex items-center"><input type="radio" name="profitable" value="no" class="mr-2"> No</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+   <div class="flex justify-between items-center pt-4 border-t w-full">
+  <div id="step1Indicator" class="flex items-center space-x-2">
+    <span class="text-blue-600 font-semibold">Step 1</span>
   </div>
+  <div id="step2Indicator" class="flex items-center space-x-2">
+    <i class="fas fa-lock text-gray-400"></i>
+  </div>
+  <button type="button" id="actionBtn"
+    class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold">
+    Next
+  </button>
+</div>
+
+
+    </form>
+  </div>
+
+ 
+<script src="script.js"></script>
 </body>
 </html>
