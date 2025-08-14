@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>Multi-Step Lead Form</title>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
-    <script>
+  <script>
     tailwind.config = {
       theme: {
         extend: {
@@ -19,7 +19,7 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
 
-  <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
+  <div class="bg-white rounded-lg w-full max-w-lg p-6">
     <h1 class="text-2xl font-bold mb-6 text-center">Complete Your Registration</h1>
 
     <form id="multiStepForm" class="space-y-6" onsubmit="return false">
@@ -48,12 +48,6 @@
                    class="w-full p-3 border rounded-r-lg focus:ring-2 focus:ring-blue-500">
           </div>
           <p id="phoneError" class="hidden text-red-500 text-xs mt-1">Please enter valid 10 digit phone number.</p>
-        </div>
-
-        <div>
-          <label for="password" class="block text-sm font-medium mb-1">Password</label>
-          <input id="password" name="password" type="password" placeholder="Create Password" required
-                 class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
         </div>
       </div>
 
@@ -90,24 +84,22 @@
       </div>
 
       <!-- Footer -->
-   <div class="flex justify-between items-center pt-4 border-t w-full">
-  <div id="step1Indicator" class="flex items-center space-x-2">
-    <span class="text-blue-600 font-semibold">Step 1</span>
-  </div>
-  <div id="step2Indicator" class="flex items-center space-x-2">
-    <i class="fas fa-lock text-gray-400"></i>
-  </div>
-  <button type="button" id="actionBtn"
-    class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold">
-    Next
-  </button>
-</div>
-
+      <div class="flex justify-between items-center pt-4 border-t w-full">
+        <div id="step1Indicator" class="flex items-center space-x-2">
+          <span class="text-blue-600 font-semibold">Step 1</span>
+        </div>
+        <div id="step2Indicator" class="flex items-center space-x-2">
+          <i class="fas fa-lock text-gray-400"></i>
+        </div>
+        <button type="button" id="actionBtn"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold">
+          Next
+        </button>
+      </div>
 
     </form>
   </div>
 
- 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

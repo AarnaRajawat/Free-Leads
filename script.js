@@ -72,7 +72,6 @@ function goToStep1() {
         name: document.getElementById("name").value.trim(),
         email: document.getElementById("email").value.trim(),
         phone: document.getElementById("phone").value.trim(),
-        password: document.getElementById("password")?.value.trim() || "",
         revenue: document.querySelector('input[name="revenue"]:checked')?.value || "",
         challenge: document.querySelector('input[name="challenge"]:checked')?.value || "",
         profitable: document.querySelector('input[name="profitable"]:checked')?.value || ""
@@ -95,36 +94,39 @@ function goToStep1() {
       return payload;
     }
 
-    async function handleSubmit() {
-      const btn = document.getElementById("actionBtn");
-      btn.disabled = true;
-      btn.textContent = "Submitting...";
+ async function handleSubmit() {
+  const btn = document.getElementById("actionBtn");
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
 
-      try {
-        await fetch(webhook, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(getFormData())
-        });
+  try {
+    const payload = getFormDataWithUTM();
+    console.log("Payload being sent to webhook:", payload); 
 
-        const res = await fetch(`https://growthifymedia-services.onrender.com/api/free-lead/${sellerName}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(getFormDataWithUTM())
-        });
+    await fetch(webhook, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-        const result = await res.json();
-        if (result.success) {
-          alert("Your form has been submitted successfully!");
-          window.location.href = redirectUrl;
-        } else {
-          alert(result.message || "Something went wrong. Try again.");
-          btn.disabled = false;
-          btn.textContent = "Submit";
-        }
-      } catch {
-        alert("Submission failed. Please try again.");
-        btn.disabled = false;
-        btn.textContent = "Submit";
-      }
+    const res = await fetch(`https://growthifymedia-services.onrender.com/api/free-lead/${sellerName}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      alert("Your form has been submitted successfully!");
+      window.location.href = redirectUrl;
+    } else {
+      alert(result.message || "Something went wrong. Try again.");
+      btn.disabled = false;
+      btn.textContent = "Submit";
     }
+  } catch {
+    alert("Submission failed. Please try again.");
+    btn.disabled = false;
+    btn.textContent = "Submit";
+  }
+}
