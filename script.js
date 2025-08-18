@@ -117,15 +117,15 @@ function goToStep1() {
 
     const result = await res.json();
     if (result.success) {
-      alert("Your form has been submitted successfully!");
+      console.log("Your form has been submitted successfully!");
       window.location.href = redirectUrl;
     } else {
-      alert(result.message || "Something went wrong. Try again.");
+      console.log(result.message || "Something went wrong. Try again.");
       btn.disabled = false;
       btn.textContent = "Submit";
     }
   } catch {
-    alert("Submission failed. Please try again.");
+    console.log("Submission failed. Please try again.");
     btn.disabled = false;
     btn.textContent = "Submit";
   }
